@@ -24,7 +24,7 @@ class ClipBot(commands.Bot):
         super().__init__(
             token=TWITCH_BOT_TOKEN,
             client_id=TWITCH_CLIENT_ID,
-            nick=os.environ.get("BOT_NICK", "Nightwave_Bot"),
+            nick=os.environ.get("ENTER BOT NAME HERE"),
             prefix=os.environ.get("COMMAND_PREFIX", "!"),
             initial_channels=[TWITCH_CHANNEL],
         )
