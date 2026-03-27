@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  clip-bot:
+    build: .
+    container_name: twitch-clip-bot
+    restart: unless-stopped
+    environment:
+      # ── Twitch ──────────────────────────────────────────────────────────
+      # Bot chat token — get from https://twitchapps.com/tmi/
+      # Must start with "oauth:"
+      TWITCH_BOT_TOKEN: "${TWITCH_BOT_TOKEN}"
+
+      # Your Twitch app credentials — https://dev.twitch.tv/console/apps
+      TWITCH_CLIENT_ID: "${TWITCH_CLIENT_ID}"
+      TWITCH_CLIENT_SECRET: "${TWITCH_CLIENT_SECRET}"
+
+      # Channel to join (without the #)
+      TWITCH_CHANNEL: "${TWITCH_CHANNEL}"
+
+      # The broadcaster's login name (usually same as TWITCH_CHANNEL)
+      # Used for resolving broadcaster_id when creating clips
+      BROADCASTER_LOGIN: "${BROADCASTER_LOGIN}"
+
+      # The bot account's display name in chat
+      BOT_NICK: "${BOT_NICK:-ClipBot}"
+
+      # ── Discord ─────────────────────────────────────────────────────────
+      # Discord channel webhook URL
+      # Server Settings > Integrations > Webhooks > New Webhook > Copy URL
+      DISCORD_WEBHOOK_URL: "${DISCORD_WEBHOOK_URL}"
+
+      # ── Bot behavior ────────────────────────────────────────────────────
+      # Prefix for commands (default: !)
+      COMMAND_PREFIX: "${COMMAND_PREFIX:-!}"
+
+      # Who can use !clip: comma-separated list of: broadcaster, moderator, everyone
+      CLIP_ALLOWED_ROLES: "${CLIP_ALLOWED_ROLES:-broadcaster,moderator}"
+
+      # Seconds between clip commands (per channel, not per user)
+      CLIP_COOLDOWN_SECONDS: "${CLIP_COOLDOWN_SECONDS:-30}"
